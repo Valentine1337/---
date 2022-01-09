@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 */
 
 public class Solution {
+    //Константы для того, чтобы сравнивать их элементы между собой и переводить числа из одной системы в другую
     private static final String HEX = "0123456789abcdef";
     private static final String[] BINARY = {"0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001",
     "1010", "1011", "1100", "1101", "1110", "1111"};
@@ -24,13 +25,18 @@ public class Solution {
         if (binaryNumber == "" || binaryNumber == null || !binaryNumber.matches("[0-1]+")) {
             return "";
         }
+        //Ввожу объект StringBuffer для того, чтобы добавить в конце двоичного числа нули, сделав его
+        // кратным 4 (по условие задачи)
         StringBuffer sb = new StringBuffer(binaryNumber);
         while ((sb.length() % 4) != 0) {
             sb.setLength(sb.length() + 1);
             sb.setCharAt(sb.length() - 1, '0');
         }
+        //Делю на 4, чтобы получить количество подстрок
         int numberOfSubstring = binaryNumber.length() / 4;
         for (int i = 0; i < numberOfSubstring; i++) {
+            //Условие для работы с последней подстрокой (т.к. метод substring игнорирует второй индекс, то последняя
+            //подстрока выходит за длину основной строки и получается IndexOutOfBoundsException
             if (indexSubstring + 4 >= sb.length()) {
                 String firstSubstring = sb.substring(indexSubstring);
                 for (int j = 0; j < BINARY.length; j++) {
@@ -41,6 +47,7 @@ public class Solution {
                     }
                 }
             } else {
+                //Основное условие для работы с подстроками
                 String firstSubstring = sb.substring(indexSubstring, indexSubstring + 4);
                 for (int j = 0; j < BINARY.length; j++) {
                     if (firstSubstring.equals(BINARY[j])) {
@@ -59,10 +66,9 @@ public class Solution {
         if (hexNumber == null || !hexNumber.matches("[0-9a-f]+")) {
             return "";
         }
-        StringBuffer sb = new StringBuffer(hexNumber);
         String binaryNumber = "";
-        for (int i = 0; i < sb.length(); i++) {
-            String firstSubstring = sb.substring(i, i + 1);
+        for (int i = 0; i < hexNumber.length(); i++) {
+            String firstSubstring = hexNumber.substring(i, i + 1);
             for (int j = 0; j < BINARY.length; j++) {
                 String secondSubstring = HEX.substring(j, j + 1);
                 if (firstSubstring.equals(secondSubstring)) {
