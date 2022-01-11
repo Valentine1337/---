@@ -22,7 +22,7 @@ public class Solution {
     public static String toHex(String binaryNumber) {
         String hexNumber = "";
         int indexSubstring = 0;
-        if (binaryNumber == "" || binaryNumber == null || !binaryNumber.matches("[0-1]+")) {
+        if (binaryNumber == null || binaryNumber.equals("") || !binaryNumber.matches("[0-1]+")) {
             return "";
         }
         //Ввожу объект StringBuffer для того, чтобы добавить в конце двоичного числа нули, сделав его
@@ -34,7 +34,7 @@ public class Solution {
         }
         //Делю на 4, чтобы получить количество подстрок
         int numberOfSubstring = binaryNumber.length() / 4;
-        for (int i = 0; i < numberOfSubstring; i++) {
+        for (int i = 0; i <= numberOfSubstring; i++) {
             //Условие для работы с последней подстрокой (т.к. метод substring игнорирует второй индекс, то последняя
             //подстрока выходит за длину основной строки и получается IndexOutOfBoundsException
             if (indexSubstring + 4 >= sb.length()) {
