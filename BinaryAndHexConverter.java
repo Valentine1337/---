@@ -2,18 +2,18 @@ package com.javarush.task.pro.task09.task0908;
 
 import java.util.regex.Pattern;
 
-/* 
+/*
 Двоично-шестнадцатеричный конвертер
 */
 
-public class Solution {
+public class BinaryAndHexConverter {
     //Константы для того, чтобы сравнивать их элементы между собой и переводить числа из одной системы в другую
     private static final String HEX = "0123456789abcdef";
     private static final String[] BINARY = {"0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001",
-    "1010", "1011", "1100", "1101", "1110", "1111"};
+            "1010", "1011", "1100", "1101", "1110", "1111"};
 
     public static void main(String[] args) {
-        String binaryNumber = "100111010000";
+        String binaryNumber = "01";
         System.out.println("Двоичное число " + binaryNumber + " равно шестнадцатеричному числу " + toHex(binaryNumber));
         String hexNumber = "9d0";
         System.out.println("Шестнадцатеричное число " + hexNumber + " равно двоичному числу " + toBinary(hexNumber));
@@ -25,12 +25,11 @@ public class Solution {
         if (binaryNumber == null || binaryNumber.equals("") || !binaryNumber.matches("[0-1]+")) {
             return "";
         }
-        //Ввожу объект StringBuffer для того, чтобы добавить в конце двоичного числа нули, сделав его
+        //Ввожу объект StringBuilder для того, чтобы добавить в конце двоичного числа нули, сделав его
         // кратным 4 (по условие задачи)
-        StringBuffer sb = new StringBuffer(binaryNumber);
+        StringBuilder sb = new StringBuilder(binaryNumber);
         while ((sb.length() % 4) != 0) {
-            sb.setLength(sb.length() + 1);
-            sb.setCharAt(sb.length() - 1, '0');
+            sb.insert(0, "0");
         }
         //Делю на 4, чтобы получить количество подстрок
         int numberOfSubstring = binaryNumber.length() / 4;
